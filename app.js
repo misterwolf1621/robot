@@ -3,6 +3,7 @@ const express = require('express');
 const ejs = require('ejs');
 const path = require('path');
 const xbee = require('xbee');
+const { SerialPort } = require('serialport');
 
 const app = express();
 const port = 7113;
@@ -49,7 +50,8 @@ app.get('/dir', (req, res)=> {
     console.log(trightspd);
     res.send({spdleft: tleftspd, spdright: trightspd});
     
-
+    SerialPort.write(tleftspd);
+    SerialPort.write(trightspd);
 });
 
 
