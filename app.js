@@ -21,8 +21,6 @@ parity: 'none',
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
 
-var leftSpeed = 0.5;
-var rightSpeed = 0.5;
 var gndspeed = 0;
 
 app.get("/", (req, res) => {
@@ -59,4 +57,4 @@ app.get('/dir', (req, res)=> {
 
 app.listen(port, console.log('listening on port ' + port));
 
-//guten morgen  
+//Hallo
