@@ -7,7 +7,7 @@ const { SerialPort } = require('serialport');
 
 const app = express();
 const port = 7113;
-/*
+
 const { SerialPort } = require('serialport');
 const comPort1 = new SerialPort({
 path: 'COM3',
@@ -17,12 +17,12 @@ dataBits: 8,
 stopBits: 1,
 parity: 'none', 
 });
-*/
+
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
 
-var leftSpeed = 0.5;
-var rightSpeed = 0.5;
+var leftSped = 0.5;
+var rightSped = 0.5;
 var gndspeed = 0;
 
 app.get("/", (req, res) => {
@@ -46,8 +46,8 @@ app.get('/dir', (req, res)=> {
             leftSpeed = leftSpeed-0.1;
         
     }
-    var tleftspd = gndspeed * leftSpeed;
-    var trightspd = gndspeed * rightSpeed;
+    var tleftspd = gndspeed * leftSped;
+    var trightspd = gndspeed * rightSped;
 
     console.log(trightspd);
     res.send({spdleft: tleftspd, spdright: trightspd});
