@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>robot control</title>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
     <script src="index.js"></script>
     <link rel="stylesheet" href="style.css">
     <style>
@@ -12,21 +13,12 @@
     </style>
 </head>
 <body>
-
-    <table>
-        <tr>
-            <td></td><td><button id="forward" onclick="direction('f');">forward</button> </td><td></td>
-        </tr>
-        <tr>
-            <td><button id="left" onclick="direction('l');">left</button></td><td></td><td><button id="right" onclick="direction('r');">right</button></td>
-        </tr>
-        <tr>
-            <td></td><td><button id="backward" onclick="direction('b');">backward</button></td><td></td>
-        </tr>
-    </table>
+    <input type="text" id="speedleft">
+    <input type="text" id="speedright"> 
     
-    
-    
-    
+    <button id="forward" onclick="direction('f');">forward</button> 
+    <button id="backward" onclick="direction('b');">backward</button>
+    <button id="left" onclick="direction('l');">left</button>
+    <button id="right" onclick="direction('r');">right</button>
 </body>
 </html>
