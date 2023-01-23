@@ -3,13 +3,12 @@ const express = require('express');
 const ejs = require('ejs');
 const path = require('path');
 const xbee = require('xbee');
-const { SerialPort } = require('serialport');
 
 const app = express();
-const port = 7113;
+const port = 7114;
 
 const { SerialPort } = require('serialport');
-const comPort1 = new SerialPort({
+const comPort = new SerialPort({
 path: 'COM3',
 baudRate: 9600,
 
@@ -46,16 +45,38 @@ app.get('/dir', (req, res)=> {
             leftSpeed = leftSpeed-0.1;
         
     }
-    var tleftspd = gndspeed * leftSpeed;
-    var trightspd = gndspeed * rightSpeed;
+    
+    var tleftspd = parseInt(gndspeed * leftSpeed);
+    var trightspd = parseInt(gndspeed * rightSpeed);
+    var spd = "";
 
-    console.log(trightspd);
+    if(tleftspd < 10) {
+        spd = "00" + tleftspd;
+    } else if(tleftspd < 100) {
+        spd = "0" + tleftspd;
+    } else {
+        spd = tleftspd;
+    }
+
+    if(trightspd < 10) {
+        spd = spd + "00" + trightspd;
+    } else if(trightspd < 100) {
+        spd = spd + "0" + trightspd;
+    } else {
+        spd = spd + trightspd;
+    }
+
+    console.log(spd);
+    
     res.send({spdleft: tleftspd, spdright: trightspd});
     
-    SerialPort.write(tleftspd);
-    SerialPort.write(trightspd);
+    comPort.write(spd.toString());
+    
 });
 
+comPort.on('readable', function () {
+    console.log('Data:', comPort.read())
+  })
 
 app.listen(port, console.log('listening on port ' + port));
 

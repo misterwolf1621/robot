@@ -38,29 +38,32 @@ void setup() {
   //Motorspeed
   pinMode(11, OUTPUT);
   pinMode(10, OUTPUT);
+
+  //pinstatus
+
+  pinMode(4, OUTPUT);
 }
 
 void loop() {
   if (Serial.available()) {        // If anything comes in Serial (USB),
-    Serial.write(Serial.read()+1);
     
-    int spdLeft = Serial.read();
-    int spdRight = Serial.read();
+    //"010 020"
+    String spd = Serial.readString();
     
-    if(spdLeft <= 0) {
-      digitalWrite(14, HIGH);
-    } else {
-      digitalWrite(14, LOW);
-    }
+    int left = atoi(spd.substring(0, 3).c_str());
+    int right = atoi(spd.substring(4, 6).c_str());
 
-    if(spdRight <= 0) {
-      digitalWrite(15, HIGH);
-    } else {
-      digitalWrite(15, LOW);
-    }
+    analogWrite(11, left);
+    analogWrite(10, right);
+    
 
-    analogWrite(11, spdLeft);
-    analogWrite(10, spdRight);
+    
+    Serial.println(spd);
+    Serial.println(left);
+    Serial.println(right);
+      
+    
+    
   }
 
 
