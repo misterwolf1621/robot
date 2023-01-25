@@ -13,8 +13,8 @@ function ajax(msg) {
             dir:msg
         },
         success: function(rec) {
-            document.getElementById('speedleft').value = rec.spdleft;
-            document.getElementById('speedright').value = rec.spdright;
+            document.getElementById('speedleft').innerHTML = rec.spdleft;
+            document.getElementById('speedright').innerHTML = rec.spdright;
         }
     });
 }

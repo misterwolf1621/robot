@@ -13,4 +13,17 @@ button {
     width: 10vw;
     height: 5vh;
     font-weight:400;
+    color:white;
+    background-color:#202828;
+}
+
+td {
+    
+    min-width:10vw;
+    text-align:center;
+}
+
+.marked {
+    color:white;
+    background-color:#3a4949;
 }

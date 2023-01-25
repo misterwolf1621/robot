@@ -13,12 +13,34 @@
     </style>
 </head>
 <body>
-    <input type="text" id="speedleft">
-    <input type="text" id="speedright"> 
+    <table>
+        <tr>
+            <td class="marked">current speed</td>
+            <td></td>
+            <td><button id="forward" onclick="direction('f');">forward</button> </td>
+            <td></td>
+            <td class="marked">current speed</td>
+        </tr>
+        <tr>
+            <td id="speedleft" class="marked"></td>
+            <td><button id="left" onclick="direction('l');">left</button></td>
+            <td></td>
+            <td><button id="right" onclick="direction('r');">right</button></td>
+            <td id="speedright" class="marked"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td><button id="backward" onclick="direction('b');">backward</button></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
     
-    <button id="forward" onclick="direction('f');">forward</button> 
-    <button id="backward" onclick="direction('b');">backward</button>
-    <button id="left" onclick="direction('l');">left</button>
-    <button id="right" onclick="direction('r');">right</button>
+    
+    
+    
+    
+    
 </body>
 </html>
