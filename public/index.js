@@ -1,7 +1,10 @@
 console.log('HALLO');
 
 function direction(dir) {
+
     ajax(dir);
+
+    
 }
 
 function ajax(msg) {
@@ -15,6 +18,13 @@ function ajax(msg) {
         success: function(rec) {
             document.getElementById('speedleft').innerHTML = rec.spdleft;
             document.getElementById('speedright').innerHTML = rec.spdright;
+            water = rec.water;
         }
     });
+
+    if(water == 1) {
+        document.getElementById("water").style.backgroundColor = "#202828";
+    } else {
+        document.getElementById("water").style.backgroundColor = "lime";
+    }
 }

@@ -50,17 +50,22 @@ void loop() {
     //"010 020"
     String spd = Serial.readString();
     
-    int left = atoi(spd.substring(0, 3).c_str());
-    int right = atoi(spd.substring(4, 6).c_str());
+    int dirleft = atoi(spd.substring(0, 1).c_str());
+    int dirright = atoi(spd.substring(1, 2).c_str());
+    int left = atoi(spd.substring(3, 6).c_str());
+    int right = atoi(spd.substring(7, 9).c_str());
+    int water = atoi(spd.substring(10, 11).c_str());
 
     analogWrite(11, left);
     analogWrite(10, right);
     
 
     
-    Serial.println(spd);
+    Serial.println(dirleft);
+    Serial.println(dirright);
     Serial.println(left);
     Serial.println(right);
+    Serial.println(water);
       
     
     
