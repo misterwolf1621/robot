@@ -17,25 +17,37 @@
         <tr>
             <td class="marked">current speed</td>
             <td></td>
-            <td><button id="forward" onclick="direction('f');">forward</button> </td>
+            <td><button id="forward" onclick="direction('np');">+</button> </td>
             <td></td>
             <td class="marked">current speed</td>
         </tr>
         <tr>
             <td id="speedleft" class="marked"></td>
-            <td><button id="left" onclick="direction('l');">left</button></td>
-            <td><button id="water" onclick="direction('w');">Wasser</button></td>
-            <td><button id="right" onclick="direction('r');">right</button></td>
+            <td id="lp"><button onclick="direction('lp');">+</button></td>
+            <td></td>
+            <td id="rp"><button onclick="direction('rp');">+</button></td>
             <td id="speedright" class="marked"></td>
         </tr>
         <tr>
             <td></td>
+            <td id="lm"><button onclick="direction('lm');">-</button></td>
             <td></td>
-            <td><button id="backward" onclick="direction('b');">backward</button></td>
-            <td></td>
+            <td id="rm"><button onclick="direction('rm');">-</button></td>
             <td></td>
         </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td><button id="backward" onclick="direction('nm');">-</button></td>
+            <td></td>
+            <td><button id="water" onclick="direction('w');">-</button></td>
+        </tr>
     </table>
+
+    <form action="send" method="get">
+        <input type="text" name="send">
+        <input type="submit">
+    </form>
     
     
     

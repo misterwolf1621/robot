@@ -4,7 +4,7 @@ const ejs = require('ejs');
 const path = require('path');
 const xbee = require('xbee');
 const app = express();
-const port = 7114;
+const port = 7113;
 
 const { SerialPort } = require('serialport');
 const comPort = new SerialPort({
@@ -16,9 +16,8 @@ app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
 
 var firstLogin = false;
-var leftSpeed = 0.5;
-var rightSpeed = 0.5;
-var gndspeed = 0;
+var leftSpeed = 0;
+var rightSpeed = 0;
 var water = 0;
 
 app.get("/", load, (req, res) => {
@@ -41,25 +40,42 @@ function load(req, res, next) {
     
 }
 
+app.get('/send', (req, res) => {
+    comPort.write(req.query.send);
+    console.log(req.query.send);
+    res.send("rec");
+});
 
 app.get('/dir', (req, res)=> {
     var dir = req.query.dir;
 
-    if(dir == "f") {
-        gndspeed = gndspeed + 20;
+    if(dir == "np") {
+        leftSpeed = leftSpeed + 5;
+        rightSpeed = rightSpeed + 5;
     }
-    if(dir == "b") {
-        gndspeed = gndspeed - 20;
+    if(dir == "nm") {
+        leftSpeed = leftSpeed - 5;
+        rightSpeed = rightSpeed - 5;
     }
-    if(dir == "r") {
-        leftSpeed = leftSpeed+ 0.1;
-        rightSpeed = rightSpeed- 0.1;
+    
+    if(dir == "rp") {
+        
+        rightSpeed = rightSpeed + 5;
     }
-    if(dir == "l") {
-            rightSpeed = rightSpeed+ 0.1;
-            leftSpeed = leftSpeed-0.1;
+    if(dir == "rm") {
+        
+        rightSpeed = rightSpeed - 5;
+    }
+
+    if(dir == "lp") {
+        leftSpeed = leftSpeed + 5;
         
     }
+    if(dir == "lm") {
+        leftSpeed = leftSpeed - 5;
+        
+    }
+
     if(dir == "w") {
         if(water == 1) {
             water = 0;
@@ -72,8 +88,8 @@ app.get('/dir', (req, res)=> {
         console.log("wartwe");
     }
     
-    var tleftspd = parseInt(gndspeed * leftSpeed);
-    var trightspd = parseInt(gndspeed * rightSpeed);
+    var tleftspd = leftSpeed;
+    var trightspd = rightSpeed;
     var spd = "";
 
     if(tleftspd < 0) {
@@ -89,6 +105,8 @@ app.get('/dir', (req, res)=> {
         spd = spd + "0";
     }
 
+
+    
     if(tleftspd < 10) {
         spd = spd + "00" + tleftspd;
     } else if(tleftspd < 100) {
@@ -120,7 +138,7 @@ app.get('/dir', (req, res)=> {
 });
 
 comPort.on('readable', function () {
-    var data = comPort.read.toString();
+    var data = comPort.read().toString();
 
     console.log(data);
   })

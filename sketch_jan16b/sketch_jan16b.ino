@@ -47,14 +47,32 @@ void setup() {
 void loop() {
   if (Serial.available()) {        // If anything comes in Serial (USB),
     
-    //"010 020"
+    //"00 010 020 0"
     String spd = Serial.readString();
     
     int dirleft = atoi(spd.substring(0, 1).c_str());
     int dirright = atoi(spd.substring(1, 2).c_str());
-    int left = atoi(spd.substring(3, 6).c_str());
-    int right = atoi(spd.substring(7, 9).c_str());
-    int water = atoi(spd.substring(10, 11).c_str());
+    int left = atoi(spd.substring(2, 5).c_str());
+    int right = atoi(spd.substring(5, 8).c_str());
+    int water = atoi(spd.substring(8, 9).c_str());
+
+    if(dirleft == 0) {
+      digitalWrite(14, LOW);
+    } else {
+      digitalWrite(14, HIGH);      
+    }
+
+    if(dirright == 0) {
+      digitalWrite(15, LOW);
+    } else {
+      digitalWrite(15, HIGH);      
+    }
+    
+    if(water == 1) {
+      digitalWrite(16, HIGH);
+    } else {
+      digitalWrite(16, LOW);
+    }
 
     analogWrite(11, left);
     analogWrite(10, right);
