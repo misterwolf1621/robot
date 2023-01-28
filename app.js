@@ -4,20 +4,24 @@ const ejs = require('ejs');
 const path = require('path');
 const xbee = require('xbee');
 const app = express();
-const port = 7113;
-
+const port = 7114;
+/*
 const { SerialPort } = require('serialport');
 const comPort = new SerialPort({
 path: 'COM3',
 baudRate: 9600,
 });
-
+*/
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
 
 var firstLogin = false;
+
 var leftSpeed = 0;
+var dirLeft = 0;
+
 var rightSpeed = 0;
+var dirRight = 0;
 var water = 0;
 
 app.get("/", load, (req, res) => {
@@ -88,61 +92,46 @@ app.get('/dir', (req, res)=> {
         console.log("wartwe");
     }
     
-    var tleftspd = leftSpeed;
-    var trightspd = rightSpeed;
-    var spd = "";
+    var tLeft = leftSpeed;
+    var tRight = rightSpeed;
 
-    if(tleftspd < 0) {
-        spd = "1";
-        tleftspd = tleftspd * (-1);
+    if(leftSpeed < 0) {
+        dirLeft = 1;
+        tLeft = tLeft * (-1);
     } else {
-        spd = "0";
-    }
-    if(trightspd < 0) {
-        spd = spd + "1";
-        trightspd = trightspd * (-1);
-    } else {
-        spd = spd + "0";
+        dirLeft = 0;
     }
 
+    if(rightSpeed < 0) {
+        dirRight = 1;
+        tRight = tRight * (-1);
+    } else {
+        dirRight = 0;
+    }
 
+    var dirwater = Number("" + water + dirLeft + dirRight);
+    console.log(dirwater);
+    var tString = String.fromCharCode(dirwater, tLeft, tRight);
     
-    if(tleftspd < 10) {
-        spd = spd + "00" + tleftspd;
-    } else if(tleftspd < 100) {
-        spd = spd + "0" + tleftspd;
-    } else {
-        spd = "" + spd + tleftspd;
-    }
-
-    if(trightspd < 10) {
-        spd = spd + "00" + trightspd;
-    } else if(trightspd < 100) {
-        spd = spd + "0" + trightspd;
-    } else {
-        spd = "" +  spd + trightspd;
-    }
-
-    if(water == 1) {
-        spd = spd + "1";
-        console.log("water set");
-    } else {
-        spd = spd + "0";
-    }
-    console.log(spd);
+    console.log(tString);
     
-    res.send({spdleft: tleftspd, spdright: trightspd, water: water});
+    res.send({spdleft: leftSpeed, spdright: rightSpeed, water: water});
     
-    comPort.write(spd.toString());
+//    comPort.write(tString);
     
 });
 
+function ascii(num) {
+    return String.fromCharCode(num);
+}
+
+/*
 comPort.on('readable', function () {
     var data = comPort.read().toString();
 
     console.log(data);
   })
-
+*/
 app.listen(port, console.log('listening on port ' + port));
 
 //Hallo

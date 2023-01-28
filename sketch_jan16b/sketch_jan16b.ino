@@ -50,11 +50,14 @@ void loop() {
     //"00 010 020 0"
     String spd = Serial.readString();
     
-    int dirleft = atoi(spd.substring(0, 1).c_str());
-    int dirright = atoi(spd.substring(1, 2).c_str());
-    int left = atoi(spd.substring(2, 5).c_str());
-    int right = atoi(spd.substring(5, 8).c_str());
-    int water = atoi(spd.substring(8, 9).c_str());
+    int left = (int) spd.substring(1, 2).c_str();
+    int right = (int) spd.substring(2, 3).c_str();
+    
+    String water = String((int) (spd.substring(0, 1).c_str()));
+
+    int waterBit = atoi(water.substring(0, 1).c_str());
+    int dirleft = atoi(water.substring(1, 2).c_str());
+    int dirright = atoi(water.substring(2, 3).c_str());
 
     if(dirleft == 0) {
       digitalWrite(14, LOW);
@@ -68,7 +71,7 @@ void loop() {
       digitalWrite(15, HIGH);      
     }
     
-    if(water == 1) {
+    if(waterBit == 1) {
       digitalWrite(16, HIGH);
     } else {
       digitalWrite(16, LOW);
@@ -83,7 +86,7 @@ void loop() {
     Serial.println(dirright);
     Serial.println(left);
     Serial.println(right);
-    Serial.println(water);
+    Serial.println(waterBit);
       
     
     
