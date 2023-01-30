@@ -6,6 +6,7 @@ body {
     display:flex;
     align-items:center;
     justify-content:center;
+    flex-direction: column;
 }
 
 button {
@@ -17,13 +18,23 @@ button {
     background-color:#202828;
 }
 
+tr {
+    height: 5vh;
+
+}
 td {
     
-    min-width:10vw;
+    width:10vw;
     text-align:center;
 }
 
 .marked {
     color:white;
+    background-color:#3a4949;
+}
+
+form {
+    
+    margin-top: 5vh;
     background-color:#3a4949;
 }

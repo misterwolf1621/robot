@@ -31,7 +31,7 @@
         <tr>
             <td></td>
             <td id="lm"><button onclick="direction('lm');">-</button></td>
-            <td></td>
+            <td><button onclick="stop();">STOP</button></td>
             <td id="rm"><button onclick="direction('rm');">-</button></td>
             <td></td>
         </tr>
@@ -40,14 +40,48 @@
             <td></td>
             <td><button id="backward" onclick="direction('nm');">-</button></td>
             <td></td>
-            <td><button id="water" onclick="direction('w');">-</button></td>
+            <td><button id="water" onclick="direction('w');">Wasser</button></td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+        </tr>
+        
+        <tr>
+            <td></td>
+            <td></td>
+            <td><button id="request" onclick="request();">send request</button></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td>&nbsp;</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><button id="hl" onclick="norm('hl');">SCHWER LINKS</button></td>
+            <td><button id="ll" onclick="norm('ll');">LEICHT LINKS</button></td>
+            <td><button id="s" onclick="norm('s');">NORMAL</button></td>
+            <td><button id="lr" onclick="norm('lr');">LEICHT RECHTS</button></td>
+            <td><button id="hr" onclick="norm('hr');">SCHWER RECHTS</button></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td><button id="b" onclick="norm('b');">ZURÜCK</button></td>
+            <td></td>
+            <td></td>
         </tr>
     </table>
-
-    <form action="send" method="get">
-        <input type="text" name="send">
-        <input type="submit">
-    </form>
+   
+        <form action="send" method="get">
+            <input type="text" name="send">
+            <input type="submit">
+        </form>
+    
+   
     
     
     

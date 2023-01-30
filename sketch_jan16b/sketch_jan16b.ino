@@ -24,6 +24,10 @@
   https://www.arduino.cc/en/Tutorial/BuiltInExamples/SerialPassthrough
 */
 
+int pump = 16;
+int dirLeft = 14;
+int dirRight = 15;
+
 void setup() {
   Serial.begin(9600);
   Serial.print("recorded");
@@ -32,9 +36,9 @@ void setup() {
   Serial.print("abc\nabc\n\n\n");
 
   //pins direction
-  pinMode(14, OUTPUT);
-  pinMode(15, OUTPUT);
-
+  pinMode(dirLeft, OUTPUT);
+  pinMode(dirRight, OUTPUT);
+  pinMode(pump, OUTPUT);
   //Motorspeed
   pinMode(11, OUTPUT);
   pinMode(10, OUTPUT);
@@ -50,44 +54,62 @@ void loop() {
     //"00 010 020 0"
     String spd = Serial.readString();
     
-    int left = (int) spd.substring(1, 2).c_str();
-    int right = (int) spd.substring(2, 3).c_str();
-    
-    String water = String((int) (spd.substring(0, 1).c_str()));
+    char bit = spd[0];
+    int left = (spd[1] -97) * 5;
+    int right = (spd[2] -97) * 5;
 
-    int waterBit = atoi(water.substring(0, 1).c_str());
-    int dirleft = atoi(water.substring(1, 2).c_str());
-    int dirright = atoi(water.substring(2, 3).c_str());
-
-    if(dirleft == 0) {
-      digitalWrite(14, LOW);
-    } else {
-      digitalWrite(14, HIGH);      
+    switch(bit) {
+      case 'a': 
+        digitalWrite(pump, LOW);
+        digitalWrite(dirLeft, LOW);
+        digitalWrite(dirRight, LOW);
+        break;
+      case 'b': 
+        digitalWrite(pump, LOW);
+        digitalWrite(dirLeft, LOW);
+        digitalWrite(dirRight, HIGH);
+        break;
+      case 'c': 
+        digitalWrite(pump, LOW);
+        digitalWrite(dirLeft, HIGH);
+        digitalWrite(dirRight, LOW);
+        break;
+      case 'd': 
+        digitalWrite(pump, LOW);
+        digitalWrite(dirLeft, HIGH);
+        digitalWrite(dirRight, HIGH);
+        break;
+      case 'e': 
+        digitalWrite(pump, HIGH);
+        digitalWrite(dirLeft, LOW);
+        digitalWrite(dirRight, LOW);
+        break;
+      case 'f': 
+        digitalWrite(pump, HIGH);
+        digitalWrite(dirLeft, LOW);
+        digitalWrite(dirRight, HIGH);
+        break;
+      case 'g': 
+        digitalWrite(pump, HIGH);
+        digitalWrite(dirLeft, HIGH);
+        digitalWrite(dirRight, LOW);
+        break;
+      case 'h': 
+        digitalWrite(pump, HIGH);
+        digitalWrite(dirLeft, HIGH);
+        digitalWrite(dirRight, HIGH);
+        break;
+      
     }
-
-    if(dirright == 0) {
-      digitalWrite(15, LOW);
-    } else {
-      digitalWrite(15, HIGH);      
-    }
-    
-    if(waterBit == 1) {
-      digitalWrite(16, HIGH);
-    } else {
-      digitalWrite(16, LOW);
-    }
-
+   
     analogWrite(11, left);
     analogWrite(10, right);
-    
 
-    
-    Serial.println(dirleft);
-    Serial.println(dirright);
+ 
+   
     Serial.println(left);
     Serial.println(right);
-    Serial.println(waterBit);
-      
+     
     
     
   }
